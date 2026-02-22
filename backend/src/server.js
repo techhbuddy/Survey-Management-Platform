@@ -13,6 +13,7 @@ const publicRoutes = require('./routes/public');
 
 const app = express();
 
+app.set("trust proxy", 1);
 // Initialize passport (Google OAuth strategy)
 require('./config/passport');
 
@@ -31,9 +32,14 @@ const initializeDatabase = async () => {
 };
 
 // Middleware
+// const corsOptions = {
+//   origin: process.env.FRONTEND_URL === '*' ? '*' : (process.env.FRONTEND_URL || 'http://localhost:3000'),
+//   credentials: process.env.FRONTEND_URL !== '*', // Only allow credentials if not wildcard
+//   optionsSuccessStatus: 200,
+// };
 const corsOptions = {
-  origin: process.env.FRONTEND_URL === '*' ? '*' : (process.env.FRONTEND_URL || 'http://localhost:3000'),
-  credentials: process.env.FRONTEND_URL !== '*', // Only allow credentials if not wildcard
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  credentials: false,
   optionsSuccessStatus: 200,
 };
 
