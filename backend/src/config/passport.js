@@ -5,7 +5,10 @@ const crypto = require('crypto');
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const BACKEND_URL = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 5000}`;
+const BACKEND_URL = process.env.BACKEND_URL ||
+  (process.env.NODE_ENV === 'production'
+    ? 'https://survey-management-platform-production.up.railway.app'
+    : `http://localhost:${process.env.PORT || 5000}`);
 
 if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
   console.warn('Google OAuth: GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET not set');
